@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Shield, 
@@ -26,12 +25,12 @@ const YoutubeEmbed = ({ embedId }: { embedId: string }) => (
     <iframe
       width="100%"
       height="100%"
-      src={`https://www.youtube.com/embed/${embedId}`}
+      src={`https://www.youtube.com/embed/${embedId}?si=hsEnH6QtTR-CXha9`}
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
-      title="Embedded youtube"
-      className="rounded-2xl"
+      title="YouTube video player"
+      className="rounded-2xl shadow-2xl shadow-black/50"
     />
   </div>
 );
@@ -108,7 +107,6 @@ const ModuleExplorer = () => {
             onClick={() => setActiveCat(cat)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeCat.id === cat.id ? 'bg-amber-500 text-black font-bold shadow-lg' : 'hover:bg-white/5 text-gray-400'}`}
           >
-            {/* Fix: casting to React.ReactElement<any> to resolve className prop injection error on unknown type */}
             {React.isValidElement(cat.icon) ? React.cloneElement(cat.icon as React.ReactElement<any>, { className: 'w-5 h-5' }) : cat.icon}
             {cat.name}
           </button>
@@ -117,7 +115,6 @@ const ModuleExplorer = () => {
       <div className="flex-1 p-8 md:p-12">
         <div className="flex items-center gap-4 mb-8">
           <div className={`p-3 rounded-2xl bg-white/5 ${activeCat.color}`}>
-            {/* Fix: casting to React.ReactElement<any> to resolve className prop injection error on unknown type */}
             {React.isValidElement(activeCat.icon) ? React.cloneElement(activeCat.icon as React.ReactElement<any>, { className: 'w-8 h-8' }) : activeCat.icon}
           </div>
           <div>
@@ -276,19 +273,40 @@ export default function App() {
         </div>
       </section>
 
-      <section id="gui" className="py-32 bg-gradient-to-b from-black to-[#050505]">
+      <section id="interface" className="py-32 bg-gradient-to-b from-black to-[#050505]">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-20">
             <div className="flex-1 order-2 lg:order-1 relative">
-              <div className="glass p-3 rounded-[3rem] shadow-2xl">
-                <img src="https://i.ibb.co/L5hY5m8/image.png" alt="GUI" className="rounded-[2.5rem] w-full" />
+              <div className="glass p-3 rounded-[3rem] shadow-2xl relative overflow-hidden group">
+                <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                <img 
+                  src="https://i.ibb.co/Q7qVCv9P/image2.png" 
+                  alt="HourClient Click GUI" 
+                  className="rounded-[2.5rem] w-full"
+                  onError={(e) => {
+                    // Fallback to a high-quality placeholder if the link breaks
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000';
+                  }}
+                />
               </div>
             </div>
             <div className="flex-1 order-1 lg:order-2 space-y-10">
               <h2 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter uppercase">
                 A BEAUTIFUL <br /> <span className="text-amber-500 italic">INTERFACE.</span>
               </h2>
-              <p className="text-gray-400 text-xl font-light">Complexity made simple. Manage every aspect of your gameplay without interrupting the flow.</p>
+              <p className="text-gray-400 text-xl font-light">
+                Complexity made simple. Manage every aspect of your gameplay without interrupting the flow. Our ClickGUI is optimized for speed and visual clarity.
+              </p>
+              <div className="flex gap-4">
+                <div className="bg-white/5 p-4 rounded-2xl flex-1">
+                  <h4 className="font-bold mb-1">Modern Blur</h4>
+                  <p className="text-xs text-gray-500">Real-time backdrop filtering.</p>
+                </div>
+                <div className="bg-white/5 p-4 rounded-2xl flex-1">
+                  <h4 className="font-bold mb-1">Custom Themes</h4>
+                  <p className="text-xs text-gray-500">Match your setup perfectly.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
