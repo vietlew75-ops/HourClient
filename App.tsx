@@ -3,8 +3,12 @@ import {
   Shield, Zap, Eye, User, Settings, Download, Menu, X, Clock, 
   ChevronRight, Play, Github, Terminal, Activity, Lock, Ghost, 
   ExternalLink, Target, Wind, Crosshair, Layers, Box, Cpu, AlertTriangle,
-  Flame, MousePointer2, Waves, MoreHorizontal, Radio, Trash2, MapPin, ZapOff
+  Flame, MousePointer2, Waves, MoreHorizontal, Radio, Trash2, MapPin, ZapOff,
+  FileDown, ShieldCheck, History, ArrowDownToLine
 } from 'lucide-react';
+
+// --- Configuration ---
+const LATEST_VERSION = "1.4.1";
 
 // --- Types ---
 interface Module {
@@ -210,7 +214,7 @@ const TerminalLog = () => {
 
   useEffect(() => {
     const messages = [
-      "[SYSTEM] Booting HourClient v2.9...",
+      `[SYSTEM] Booting HourClient v${LATEST_VERSION}...`,
       "[AUTH] Connected to auth-server-west-1.",
       "[MODULE] Combat.KillAura: Initialized.",
       "[BYPASS] Watchdog protocols spoofed.",
@@ -272,16 +276,20 @@ export default function App() {
           </div>
           
           <div className="hidden lg:flex items-center gap-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
-            {['Showcase', 'Interface', 'Modules', 'Status'].map(item => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-amber-500 transition-colors">{item}</a>
-            ))}
+            <a href="#showcase" className="hover:text-amber-500 transition-colors">Showcase</a>
+            <a href="#interface" className="hover:text-amber-500 transition-colors">Interface</a>
+            <a href="#modules" className="hover:text-amber-500 transition-colors">Modules</a>
+            <a href="download.html" className="hover:text-amber-500 transition-colors">Download</a>
             <div className="flex items-center gap-6 border-l border-white/10 pl-12">
               <button onClick={toggleGhost} className={`p-2 rounded-lg transition-all ${ghostMode ? 'bg-amber-500/20 text-amber-500 border border-amber-500' : 'text-white/30 hover:text-white'}`}>
                 <Ghost className="w-5 h-5" />
               </button>
-              <button className="bg-amber-500 hover:bg-amber-400 text-black px-8 py-3 rounded-2xl font-black transition-all transform hover:-translate-y-1 active:scale-95 shadow-lg shadow-amber-500/20">
+              <a 
+                href="download.html"
+                className="bg-amber-500 hover:bg-amber-400 text-black px-8 py-3 rounded-2xl font-black transition-all transform hover:-translate-y-1 active:scale-95 shadow-lg shadow-amber-500/20 text-center"
+              >
                 GET ACCESS
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -292,7 +300,7 @@ export default function App() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl aspect-square bg-amber-500/5 blur-[180px] rounded-full -z-10 animate-pulse" />
         <div className="container mx-auto px-8 text-center">
           <div className="inline-flex items-center gap-3 bg-amber-500/10 border border-amber-500/30 px-6 py-2 rounded-full text-amber-500 text-[10px] font-black tracking-[0.3em] mb-12 flicker">
-            <Activity className="w-4 h-4" /> SECURE V2.9 - UNDETECTED
+            <Activity className="w-4 h-4" /> v{LATEST_VERSION} - UNDETECTED
           </div>
           <h1 className="text-7xl md:text-[140px] font-black tracking-tighter leading-[0.8] mb-12 uppercase italic">
             THE SYSTEM <br />
@@ -302,12 +310,15 @@ export default function App() {
             Engineered for those who demand the impossible. HourClient redefines utility with bypasses that leave detection in the dark.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-            <button className="group w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black text-2xl font-black px-16 py-6 rounded-3xl transition-all shadow-[0_0_50px_rgba(251,191,36,0.3)] hover:scale-105 flex items-center gap-4 italic">
+            <a 
+              href="download.html"
+              className="group w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black text-2xl font-black px-16 py-6 rounded-3xl transition-all shadow-[0_0_50px_rgba(251,191,36,0.3)] hover:scale-105 flex items-center gap-4 italic"
+            >
               DOWNLOAD NOW <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-            </button>
-            <button className="w-full sm:w-auto glass hover:bg-white/5 text-white text-2xl font-bold px-16 py-6 rounded-3xl transition-all flex items-center justify-center gap-4 italic">
+            </a>
+            <a href="#showcase" className="w-full sm:w-auto glass hover:bg-white/5 text-white text-2xl font-bold px-16 py-6 rounded-3xl transition-all flex items-center justify-center gap-4 italic">
               <Play className="w-6 h-6 fill-current text-amber-500" /> SHOWCASE
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -344,7 +355,6 @@ export default function App() {
             <div className="flex-1 order-2 lg:order-1 relative group">
               <div className="absolute -inset-4 bg-amber-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-40 transition-opacity" />
               <div className="glass p-4 rounded-[3.5rem] shadow-2xl relative z-10 overflow-hidden">
-                {/* Scanner Overlay Animation */}
                 <div className="absolute inset-x-0 h-1 bg-amber-500/40 shadow-[0_0_15px_rgba(251,191,36,0.5)] z-20 animate-scan pointer-events-none" style={{ animation: 'scan 4s linear infinite' }} />
                 <style>{`
                   @keyframes scan {

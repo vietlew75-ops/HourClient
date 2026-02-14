@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -7,6 +6,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './index.html',
+        download: './download.html',
       },
     },
   },
