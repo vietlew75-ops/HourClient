@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 
 // --- Configuration ---
-const LATEST_VERSION = "1.4.1";
+const LATEST_VERSION = "1.4";
 
 // --- Types ---
 interface Module {
