@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
-  Shield, Zap, Eye, User, Settings, Download, Menu, X, Clock, 
-  ChevronRight, Play, Github, Terminal, Activity, Lock, Ghost, 
+  Eye, User, Clock, 
+  ChevronRight, Play, Github, Activity, Ghost, 
   ExternalLink, Target, Wind, Crosshair, Layers, Box, Cpu, AlertTriangle,
-  Flame, MousePointer2, Waves, MoreHorizontal, Radio, Trash2, MapPin, ZapOff,
-  FileDown, ShieldCheck, History, ArrowDownToLine
+  MoreHorizontal
 } from 'lucide-react';
 
 // --- Configuration ---
@@ -101,6 +100,7 @@ const CATEGORIES: Category[] = [
       { name: 'AutoTool', desc: 'Switches to the optimal tool for the block being broken.' },
       { name: 'ChestStealer', desc: 'Loot chests instantly upon interaction.' },
       { name: 'FastPlace', desc: 'Removes the placement delay for rapid building.' },
+      { name: 'GApple', desc: 'Automatically consumes golden apples to maintain health and regeneration.', isHot: true },
       { name: 'GhostHand', desc: 'Interact with blocks through walls and obstructions.' },
       { name: 'InvManager', desc: 'Sort, clean, and organize your inventory with one click.' },
       { name: 'InvWalk', desc: 'Allows movement and jumping while inventory is open.' },
@@ -208,53 +208,6 @@ const ModuleExplorer = () => {
   );
 };
 
-const TerminalLog = () => {
-  const [logs, setLogs] = useState<string[]>([]);
-  const logRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const messages = [
-      `[SYSTEM] Booting HourClient v${LATEST_VERSION}...`,
-      "[AUTH] Connected to auth-server-west-1.",
-      "[MODULE] Combat.KillAura: Initialized.",
-      "[BYPASS] Watchdog protocols spoofed.",
-      "[HWID] Auth Token Validated.",
-      "[INFO] Session established. Welcome, User.",
-      "[STATUS] Awaiting injection commands..."
-    ];
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < messages.length) {
-        setLogs(prev => [...prev, messages[i]]);
-        i++;
-      } else clearInterval(interval);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
-  }, [logs]);
-
-  return (
-    <div className="bg-black/90 border border-amber-500/20 rounded-xl p-5 font-mono text-[10px] text-amber-500/70 max-h-40 overflow-y-auto w-72 hidden xl:block fixed bottom-10 left-10 z-50 backdrop-blur-xl shadow-2xl" ref={logRef}>
-      <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-2">
-        <span className="flex items-center gap-2"><Terminal className="w-3 h-3" /> CONSOLE</span>
-        <div className="flex gap-1">
-          <div className="w-2 h-2 rounded-full bg-red-500/50" />
-          <div className="w-2 h-2 rounded-full bg-amber-500/50" />
-        </div>
-      </div>
-      {logs.map((log, idx) => (
-        <div key={idx} className="mb-1 leading-tight opacity-80 hover:opacity-100 transition-opacity">
-          <span className="text-gray-600 mr-2">{new Date().toLocaleTimeString()}</span>
-          {log}
-        </div>
-      ))}
-    </div>
-  );
-};
-
 export default function App() {
   const [ghostMode, setGhostMode] = useState(false);
   
@@ -337,7 +290,7 @@ export default function App() {
                 <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Ban Rate</div>
               </div>
               <div className="glass p-6 rounded-3xl text-center min-w-[140px]">
-                <div className="text-3xl font-black text-amber-500 mb-1">58+</div>
+                <div className="text-3xl font-black text-amber-500 mb-1">59+</div>
                 <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Modules</div>
               </div>
             </div>
@@ -419,9 +372,6 @@ export default function App() {
           <ModuleExplorer />
         </div>
       </section>
-
-      {/* Terminal Log Simulation */}
-      <TerminalLog />
 
       {/* Footer */}
       <footer className="py-32 border-t border-white/5 bg-black overflow-hidden relative">
