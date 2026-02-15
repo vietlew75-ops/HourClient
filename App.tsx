@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 // --- Configuration ---
-const LATEST_VERSION = "1.4";
+const LATEST_VERSION = "1.6";
 
 // --- Types ---
 interface Module {
@@ -75,6 +75,7 @@ const CATEGORIES: Category[] = [
       { name: 'Chams', desc: 'Apply custom materials to entities seen through walls.' },
       { name: 'ChestESP', desc: 'Highlight chests, ender-chests, and hoppers globally.' },
       { name: 'ClickGui', desc: 'The central interface for client configuration.', isHot: true },
+      { name: 'DynamicIsland', desc: 'Highly customizable HUD element for status notifications and active module tracking.', isHot: true },
       { name: 'ESP', desc: 'Render bounding boxes and health bars through geometry.', isHot: true },
       { name: 'Fullbright', desc: 'Maximum gamma override for complete visibility.' },
       { name: 'HUD', desc: 'On-screen display for client info and module status.' },
@@ -122,6 +123,7 @@ const CATEGORIES: Category[] = [
       { name: 'LightningTracker', desc: 'Notifies you of lightning strikes to find players.' },
       { name: 'NickHider', desc: 'Hides your username locally for recording purposes.' },
       { name: 'NoRotate', desc: 'Prevents the server from forcing your head rotation.' },
+      { name: 'OfflineFix', desc: 'Enhanced debugging for offline account authentication and login protocols.' },
       { name: 'Spammer', desc: 'Automatically sends configurable messages to chat.' },
     ]
   }
@@ -150,17 +152,17 @@ const ModuleExplorer = () => {
   const [activeCat, setActiveCat] = useState(CATEGORIES[0]);
 
   return (
-    <div className="glass rounded-[2.5rem] overflow-hidden flex flex-col lg:flex-row min-h-[650px] border-amber-500/10 hover:border-amber-500/20 transition-colors">
-      <div className="w-full lg:w-72 bg-white/[0.02] p-8 space-y-3 border-r border-white/5">
+    <div className="acrylic rounded-[2.5rem] flex flex-col lg:flex-row min-h-[650px] shadow-2xl border-white/5 relative z-10">
+      <div className="w-full lg:w-72 p-8 space-y-3 border-r border-white/5 relative z-10">
         <div className="flex items-center gap-2 mb-8 px-2">
           <Layers className="w-4 h-4 text-amber-500" />
-          <h4 className="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em]">Directory</h4>
+          <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Directory</h4>
         </div>
         {CATEGORIES.map(cat => (
           <button
             key={cat.id}
             onClick={() => setActiveCat(cat)}
-            className={`w-full flex items-center justify-between px-5 py-4 rounded-2xl transition-all duration-300 ${
+            className={`w-full flex items-center justify-between px-5 py-4 rounded-2xl transition-all duration-300 relative z-10 ${
               activeCat.id === cat.id 
               ? 'bg-amber-500 text-black font-black shadow-[0_10px_30px_rgba(251,191,36,0.2)]' 
               : 'hover:bg-white/5 text-gray-400'
@@ -175,7 +177,7 @@ const ModuleExplorer = () => {
         ))}
       </div>
       
-      <div className="flex-1 p-8 lg:p-16 max-h-[800px] overflow-y-auto custom-scrollbar">
+      <div className="flex-1 p-8 lg:p-16 max-h-[800px] overflow-y-auto custom-scrollbar relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="space-y-2">
             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-[10px] font-bold uppercase tracking-widest ${activeCat.color}`}>
@@ -190,16 +192,16 @@ const ModuleExplorer = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-8">
           {activeCat.modules.map(mod => (
-            <div key={mod.name} className="group relative p-8 rounded-3xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.04] transition-all overflow-hidden">
+            <div key={mod.name} className="group relative p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.08] transition-all overflow-hidden shadow-inner">
               {mod.isHot && (
-                <div className="absolute top-0 right-0 px-4 py-1 bg-amber-500 text-black text-[8px] font-black uppercase tracking-tighter rounded-bl-xl">
+                <div className="absolute top-0 right-0 px-4 py-1 bg-amber-500 text-black text-[8px] font-black uppercase tracking-tighter rounded-bl-xl z-10">
                   ESSENTIAL
                 </div>
               )}
-              <h5 className="font-black text-xl mb-3 flex items-center gap-3 group-hover:text-amber-500 transition-colors uppercase italic">
+              <h5 className="font-black text-xl mb-3 flex items-center gap-3 group-hover:text-amber-500 transition-colors uppercase italic relative z-10">
                 {mod.name}
               </h5>
-              <p className="text-gray-500 text-sm leading-relaxed font-light">{mod.desc}</p>
+              <p className="text-gray-400 text-sm leading-relaxed font-light relative z-10">{mod.desc}</p>
             </div>
           ))}
         </div>
@@ -219,8 +221,8 @@ export default function App() {
   return (
     <div className="min-h-screen selection:bg-amber-500 selection:text-black">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] py-8 transition-all">
-        <div className="container mx-auto px-8 flex justify-between items-center">
+      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-7xl">
+        <div className="acrylic rounded-[2rem] px-8 py-4 flex justify-between items-center shadow-2xl">
           <div className="flex items-center gap-4 cursor-pointer group">
             <div className={`p-2 rounded-xl transition-all ${ghostMode ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'bg-white/10 group-hover:bg-amber-500 group-hover:text-black'}`}>
               <Clock className="w-6 h-6" strokeWidth={3} />
@@ -234,12 +236,12 @@ export default function App() {
             <a href="#modules" className="hover:text-amber-500 transition-colors">Modules</a>
             <a href="download.html" className="hover:text-amber-500 transition-colors">Download</a>
             <div className="flex items-center gap-6 border-l border-white/10 pl-12">
-              <button onClick={toggleGhost} className={`p-2 rounded-lg transition-all ${ghostMode ? 'bg-amber-500/20 text-amber-500 border border-amber-500' : 'text-white/30 hover:text-white'}`}>
+              <button onClick={toggleGhost} className={`p-2 rounded-lg transition-all ${ghostMode ? 'bg-amber-500/20 text-amber-500 border border-amber-500 shadow-inner' : 'text-white/30 hover:text-white'}`}>
                 <Ghost className="w-5 h-5" />
               </button>
               <a 
                 href="download.html"
-                className="bg-amber-500 hover:bg-amber-400 text-black px-8 py-3 rounded-2xl font-black transition-all transform hover:-translate-y-1 active:scale-95 shadow-lg shadow-amber-500/20 text-center"
+                className="bg-amber-500 hover:bg-amber-400 text-black px-8 py-3 rounded-2xl font-black transition-all transform hover:-translate-y-1 active:scale-95 shadow-lg shadow-amber-500/40 text-center"
               >
                 GET ACCESS
               </a>
@@ -252,7 +254,7 @@ export default function App() {
       <section className="relative pt-60 pb-40 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl aspect-square bg-amber-500/5 blur-[180px] rounded-full -z-10 animate-pulse" />
         <div className="container mx-auto px-8 text-center">
-          <div className="inline-flex items-center gap-3 bg-amber-500/10 border border-amber-500/30 px-6 py-2 rounded-full text-amber-500 text-[10px] font-black tracking-[0.3em] mb-12 flicker">
+          <div className="inline-flex items-center gap-3 bg-amber-500/10 border border-amber-500/30 px-6 py-2 rounded-full text-amber-500 text-[10px] font-black tracking-[0.3em] mb-12 flicker shadow-[0_0_20px_rgba(251,191,36,0.1)]">
             <Activity className="w-4 h-4" /> v{LATEST_VERSION} - UNDETECTED
           </div>
           <h1 className="text-7xl md:text-[140px] font-black tracking-tighter leading-[0.8] mb-12 uppercase italic">
@@ -265,11 +267,11 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
             <a 
               href="download.html"
-              className="group w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black text-2xl font-black px-16 py-6 rounded-3xl transition-all shadow-[0_0_50px_rgba(251,191,36,0.3)] hover:scale-105 flex items-center gap-4 italic"
+              className="group w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black text-2xl font-black px-16 py-6 rounded-3xl transition-all shadow-[0_10px_60px_rgba(251,191,36,0.3)] hover:scale-105 flex items-center justify-center gap-4 italic"
             >
               DOWNLOAD NOW <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </a>
-            <a href="#showcase" className="w-full sm:w-auto glass hover:bg-white/5 text-white text-2xl font-bold px-16 py-6 rounded-3xl transition-all flex items-center justify-center gap-4 italic">
+            <a href="#showcase" className="w-full sm:w-auto acrylic hover:bg-white/10 text-white text-2xl font-bold px-16 py-6 rounded-3xl transition-all flex items-center justify-center gap-4 italic shadow-2xl">
               <Play className="w-6 h-6 fill-current text-amber-500" /> SHOWCASE
             </a>
           </div>
@@ -285,13 +287,13 @@ export default function App() {
               <p className="text-gray-500 text-lg max-w-md font-light">Watch HourClient dismantle traditional server-side anti-cheats in high-fidelity 4K.</p>
             </div>
             <div className="flex gap-4">
-              <div className="glass p-6 rounded-3xl text-center min-w-[140px]">
-                <div className="text-3xl font-black text-amber-500 mb-1">0%</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Ban Rate</div>
+              <div className="acrylic p-6 rounded-3xl text-center min-w-[140px] shadow-xl">
+                <div className="text-3xl font-black text-amber-500 mb-1 relative z-10">0%</div>
+                <div className="text-[10px] text-gray-400 uppercase tracking-widest font-bold relative z-10">Ban Rate</div>
               </div>
-              <div className="glass p-6 rounded-3xl text-center min-w-[140px]">
-                <div className="text-3xl font-black text-amber-500 mb-1">59+</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Modules</div>
+              <div className="acrylic p-6 rounded-3xl text-center min-w-[140px] shadow-xl">
+                <div className="text-3xl font-black text-amber-500 mb-1 relative z-10">61+</div>
+                <div className="text-[10px] text-gray-400 uppercase tracking-widest font-bold relative z-10">Modules</div>
               </div>
             </div>
           </div>
@@ -307,7 +309,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row items-center gap-32">
             <div className="flex-1 order-2 lg:order-1 relative group">
               <div className="absolute -inset-4 bg-amber-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-40 transition-opacity" />
-              <div className="glass p-4 rounded-[3.5rem] shadow-2xl relative z-10 overflow-hidden">
+              <div className="acrylic p-4 rounded-[3.5rem] shadow-2xl relative z-10 overflow-hidden border-white/10">
                 <div className="absolute inset-x-0 h-1 bg-amber-500/40 shadow-[0_0_15px_rgba(251,191,36,0.5)] z-20 animate-scan pointer-events-none" style={{ animation: 'scan 4s linear infinite' }} />
                 <style>{`
                   @keyframes scan {
@@ -324,7 +326,7 @@ export default function App() {
                 <img 
                   src="https://i.ibb.co/Q7qVCv9P/image2.png" 
                   alt="HourClient Interface" 
-                  className="rounded-[3rem] w-full border border-white/5"
+                  className="rounded-[3rem] w-full border border-white/5 relative z-10"
                 />
               </div>
             </div>
@@ -347,9 +349,9 @@ export default function App() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-amber-500">
                     <Box className="w-6 h-6" />
-                    <span className="font-black text-xs uppercase tracking-widest">Modern Blur</span>
+                    <span className="font-black text-xs uppercase tracking-widest">Acrylic Blur</span>
                   </div>
-                  <p className="text-sm text-gray-500">Backdrop-filtered visuals that integrate seamlessly with your client.</p>
+                  <p className="text-sm text-gray-500">Noise-textured visuals that integrate seamlessly with your client.</p>
                 </div>
               </div>
             </div>
@@ -378,16 +380,16 @@ export default function App() {
         <div className="absolute inset-0 bg-amber-500/5 -skew-y-6 translate-y-20 pointer-events-none" />
         <div className="container mx-auto px-8 relative z-10 flex flex-col items-center">
           <div className="flex gap-8 mb-16">
-            <a href="#" className="p-4 rounded-full glass hover:bg-amber-500 hover:text-black transition-all">
-              <Github className="w-6 h-6" />
+            <a href="#" className="p-4 rounded-full acrylic hover:bg-amber-500 hover:text-black transition-all shadow-xl">
+              <Github className="w-6 h-6 relative z-10" />
             </a>
-            <a href="#" className="p-4 rounded-full glass hover:bg-amber-500 hover:text-black transition-all">
-              <ExternalLink className="w-6 h-6" />
+            <a href="#" className="p-4 rounded-full acrylic hover:bg-amber-500 hover:text-black transition-all shadow-xl">
+              <ExternalLink className="w-6 h-6 relative z-10" />
             </a>
           </div>
           <div className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-700 text-center space-y-4">
             <p>&copy; {new Date().getFullYear()} HourClient Team. ALL PROTOCOLS ENCRYPTED.</p>
-            <p className="opacity-40 max-w-md mx-auto leading-relaxed">THIS IS A UTILITY TOOLSET. NOT AN OFFICIAL MOJANG PRODUCT. USE AT YOUR OWN DISCRETION WITHIN LICENSED ENVIRONMENTS.</p>
+            <p className="opacity-40 max-w-md mx-auto leading-relaxed uppercase tracking-[0.2em]">THIS IS A UTILITY TOOLSET. NOT AN OFFICIAL MOJANG PRODUCT. USE AT YOUR OWN DISCRETION WITHIN LICENSED ENVIRONMENTS.</p>
           </div>
         </div>
       </footer>

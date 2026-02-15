@@ -2,52 +2,52 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { 
   FileDown, ShieldCheck, History, ArrowDownToLine, 
-  ChevronLeft, Terminal, Activity, AlertTriangle, 
-  Lock, Clock, List, ExternalLink, Package, Calendar
+  ChevronLeft, Activity, AlertTriangle, 
+  Lock, Clock, Package, Calendar
 } from 'lucide-react';
 
 const VERSIONS = [
   {
-    tag: "1.4",
+    tag: "1.6",
     status: "Latest",
     date: "Current Stable",
+    size: "1.78 MB",
+    bytes: "1,872,114 bytes",
+    id: "1inSqjnWWqiyNafdA0-G_nwr2fwPYhLNX",
+    url: "https://drive.usercontent.google.com/u/0/uc?id=1inSqjnWWqiyNafdA0-G_nwr2fwPYhLNX&export=download"
+  },
+  {
+    tag: "1.4",
+    status: "Legacy",
+    date: "Legacy Stable",
     size: "1.77 MB",
     bytes: "1,866,668 bytes",
     id: "11NpfLjD39inzJ822JZvpXK8xjpXYm7fY",
     url: "https://drive.usercontent.google.com/u/0/uc?id=11NpfLjD39inzJ822JZvpXK8xjpXYm7fY&export=download"
-  },
-  {
-    tag: "1.3.1",
-    status: "Legacy",
-    date: "Legacy Build",
-    size: "1.77 MB",
-    bytes: "1,864,123 bytes",
-    id: "1jxpZdpwgG1sAibmRg-lA-idEDoi-q3O_",
-    url: "https://drive.usercontent.google.com/u/0/uc?id=1jxpZdpwgG1sAibmRg-lA-idEDoi-q3O_&export=download"
   }
 ];
 
 const VERSION_HISTORY = [
   {
+    version: "1.6.0",
+    date: "June 02, 2024",
+    status: "Stable",
+    highlights: ["Dynamic Island Customization", "Offline Account Fixes", "Kernel Engine Optimization", "Enhanced Bypass Logic"],
+    url: "https://drive.usercontent.google.com/u/0/uc?id=1inSqjnWWqiyNafdA0-G_nwr2fwPYhLNX&export=download"
+  },
+  {
     version: "1.4.0",
     date: "May 20, 2024",
-    status: "Stable",
-    highlights: ["Complete GUI Redesign", "Advanced Pathfinding Aura", "Universal Bypasses"],
+    status: "Legacy",
+    highlights: ["Complete GUI Redesign", "Advanced Pathfinding Aura", "Universal Bypasses", "GApple Module"],
     url: "https://drive.usercontent.google.com/u/0/uc?id=11NpfLjD39inzJ822JZvpXK8xjpXYm7fY&export=download"
   },
   {
     version: "1.3.1",
     date: "March 15, 2024",
-    status: "Legacy",
+    status: "Archived",
     highlights: ["Watchdog Rotation Fixes", "New Velocity Algorithms", "ChestStealer Optimization"],
     url: "https://drive.usercontent.google.com/u/0/uc?id=1jxpZdpwgG1sAibmRg-lA-idEDoi-q3O_&export=download"
-  },
-  {
-    version: "1.2.5",
-    date: "January 10, 2024",
-    status: "Archived",
-    highlights: ["Initial Ghost Mode Implementation", "ClickAssist V2", "ESP Optimization"],
-    url: "#"
   },
   {
     version: "1.1.0",
@@ -72,15 +72,15 @@ const DownloadPage = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-amber-500 selection:text-black font-sans pb-40">
-      <nav className="fixed top-0 left-0 right-0 z-[100] py-8">
-        <div className="container mx-auto px-8 flex justify-between items-center">
-          <a href="index.html" className="flex items-center gap-4 group">
+      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-7xl">
+        <div className="acrylic rounded-[2rem] px-8 py-4 flex justify-between items-center shadow-2xl">
+          <a href="index.html" className="flex items-center gap-4 group relative z-10">
             <div className="p-2 rounded-xl bg-white/10 group-hover:bg-amber-500 group-hover:text-black transition-all">
               <ChevronLeft className="w-6 h-6" />
             </div>
             <span className="text-xl font-black tracking-tighter uppercase italic">Back to Home</span>
           </a>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 relative z-10">
              <Clock className="w-5 h-5 text-amber-500 flicker" />
              <span className="text-xs font-mono font-bold text-gray-500 uppercase tracking-widest">Vault Session: Active</span>
           </div>
@@ -89,7 +89,7 @@ const DownloadPage = () => {
 
       <main className="container mx-auto px-8 pt-48">
         <div className="max-w-4xl mx-auto text-center mb-24 space-y-6">
-          <div className="inline-flex items-center gap-3 bg-amber-500/10 border border-amber-500/20 px-6 py-2 rounded-full text-amber-500 text-[10px] font-black tracking-[0.3em] uppercase flicker">
+          <div className="inline-flex items-center gap-3 bg-amber-500/10 border border-amber-500/20 px-6 py-2 rounded-full text-amber-500 text-[10px] font-black tracking-[0.3em] uppercase flicker shadow-inner">
             <Lock className="w-4 h-4" /> Secure Repository Access
           </div>
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic leading-none">
@@ -103,13 +103,13 @@ const DownloadPage = () => {
         {/* Primary Download Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto mb-32">
           {VERSIONS.map((v) => (
-            <div key={v.tag} className="glass p-12 rounded-[3.5rem] relative overflow-hidden group hover:border-amber-500/30 transition-all">
-              <div className="absolute top-0 right-0 bg-amber-500 text-black px-8 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-bl-3xl">
+            <div key={v.tag} className="acrylic p-12 rounded-[3.5rem] relative group hover:border-amber-500/40 transition-all shadow-2xl">
+              <div className="absolute top-0 right-0 bg-amber-500 text-black px-8 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-bl-3xl z-10">
                 {v.status}
               </div>
               
-              <div className="flex items-center gap-8 mb-10">
-                <div className="p-6 rounded-3xl bg-amber-500/10 border border-amber-500/20">
+              <div className="flex items-center gap-8 mb-10 relative z-10">
+                <div className="p-6 rounded-3xl bg-amber-500/10 border border-amber-500/20 shadow-inner">
                   <FileDown className="w-12 h-12 text-amber-500" />
                 </div>
                 <div>
@@ -120,15 +120,15 @@ const DownloadPage = () => {
                 </div>
               </div>
 
-              <div className="space-y-4 mb-10">
-                <div className="flex justify-between items-center p-5 bg-white/5 rounded-2xl border border-white/5">
-                  <span className="text-[10px] text-gray-500 uppercase font-black">Integrity Status</span>
+              <div className="space-y-4 mb-10 relative z-10">
+                <div className="flex justify-between items-center p-5 bg-white/5 rounded-2xl border border-white/5 shadow-inner">
+                  <span className="text-[10px] text-gray-400 uppercase font-black">Integrity Status</span>
                   <span className="text-sm font-bold flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-green-500" /> Secure
                   </span>
                 </div>
-                <div className="flex justify-between items-center p-5 bg-white/5 rounded-2xl border border-white/5">
-                  <span className="text-[10px] text-gray-500 uppercase font-black">Data Payload</span>
+                <div className="flex justify-between items-center p-5 bg-white/5 rounded-2xl border border-white/5 shadow-inner">
+                  <span className="text-[10px] text-gray-400 uppercase font-black">Data Payload</span>
                   <span className="text-sm font-bold">{v.size} ({v.bytes})</span>
                 </div>
               </div>
@@ -136,10 +136,10 @@ const DownloadPage = () => {
               <button 
                 disabled={downloading !== null}
                 onClick={() => startDownload(v.tag, v.url)}
-                className={`w-full py-7 rounded-3xl text-2xl font-black transition-all transform flex items-center justify-center gap-4 italic ${
+                className={`w-full py-7 rounded-3xl text-2xl font-black transition-all transform flex items-center justify-center gap-4 italic relative z-10 ${
                   downloading === v.tag 
                   ? 'bg-white/10 text-amber-500 cursor-wait' 
-                  : 'bg-amber-500 hover:bg-amber-400 text-black shadow-[0_10px_40px_rgba(251,191,36,0.1)] active:scale-95 group-hover:scale-[1.02]'
+                  : 'bg-amber-500 hover:bg-amber-400 text-black shadow-[0_10px_40px_rgba(251,191,36,0.3)] active:scale-95 group-hover:scale-[1.02]'
                 }`}
               >
                 {downloading === v.tag ? (
@@ -149,7 +149,7 @@ const DownloadPage = () => {
                 )}
               </button>
               
-              <div className="mt-8 text-center text-[9px] font-mono text-gray-600 uppercase tracking-widest">
+              <div className="mt-8 text-center text-[9px] font-mono text-gray-600 uppercase tracking-widest relative z-10">
                 MD5_CHECKSUM: {v.id.substring(0, 16).toUpperCase()}
               </div>
             </div>
@@ -167,28 +167,28 @@ const DownloadPage = () => {
               <h2 className="text-5xl font-black uppercase tracking-tighter italic">Version <span className="text-amber-500">History.</span></h2>
               <p className="text-gray-500 font-light max-w-md">Detailed record of previous system iterations and development milestones.</p>
             </div>
-            <div className="glass px-6 py-3 rounded-2xl flex items-center gap-4 text-xs font-bold text-gray-400">
-              <Package className="w-4 h-4 text-amber-500" />
-              Total Releases: {VERSION_HISTORY.length}
+            <div className="acrylic px-6 py-3 rounded-2xl flex items-center gap-4 text-xs font-bold text-gray-400 shadow-lg">
+              <Package className="w-4 h-4 text-amber-500 relative z-10" />
+              <span className="relative z-10">Total Releases: {VERSION_HISTORY.length}</span>
             </div>
           </div>
 
           <div className="space-y-4">
             {VERSION_HISTORY.map((item, idx) => (
-              <div key={item.version} className="glass p-8 rounded-[2rem] flex flex-col lg:flex-row items-start lg:items-center gap-8 group hover:bg-white/[0.04] transition-all border-white/5 hover:border-amber-500/20">
-                <div className="min-w-[120px]">
+              <div key={item.version} className="acrylic p-8 rounded-[2rem] flex flex-col lg:flex-row items-start lg:items-center gap-8 group hover:bg-white/[0.08] transition-all border-white/5 hover:border-amber-500/20 shadow-xl">
+                <div className="min-w-[120px] relative z-10">
                   <div className="text-3xl font-black text-white group-hover:text-amber-500 transition-colors uppercase italic tracking-tighter">v{item.version}</div>
                   <div className={`text-[9px] font-black uppercase mt-1 px-2 py-0.5 rounded inline-block ${item.status === 'Stable' ? 'bg-green-500/20 text-green-500' : 'bg-white/10 text-gray-500'}`}>
                     {item.status}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 min-w-[180px] text-gray-500">
+                <div className="flex items-center gap-3 min-w-[180px] text-gray-500 relative z-10">
                   <Calendar className="w-4 h-4 text-amber-500/50" />
                   <span className="text-xs font-bold uppercase tracking-widest">{item.date}</span>
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 relative z-10">
                   <div className="flex flex-wrap gap-2">
                     {item.highlights.map((highlight, hIdx) => (
                       <span key={hIdx} className="bg-white/5 border border-white/5 px-4 py-2 rounded-xl text-[10px] font-bold text-gray-400 group-hover:text-gray-200 transition-colors">
@@ -198,7 +198,7 @@ const DownloadPage = () => {
                   </div>
                 </div>
 
-                <div className="w-full lg:w-auto">
+                <div className="w-full lg:w-auto relative z-10">
                   <button 
                     onClick={() => item.url !== "#" && startDownload(`v${item.version}`, item.url)}
                     className={`w-full lg:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all ${
@@ -218,14 +218,14 @@ const DownloadPage = () => {
         </div>
 
         {/* Security Advisory */}
-        <div className="mt-32 max-w-2xl mx-auto glass p-8 rounded-3xl border-red-500/10">
-          <div className="flex gap-6 items-start">
+        <div className="mt-32 max-w-2xl mx-auto acrylic p-8 rounded-3xl border-red-500/20 shadow-2xl">
+          <div className="flex gap-6 items-start relative z-10">
             <div className="p-3 bg-red-500/10 rounded-xl">
               <AlertTriangle className="w-6 h-6 text-red-500" />
             </div>
             <div className="space-y-2">
               <h4 className="font-bold text-red-400 uppercase tracking-widest text-sm">Security Advisory</h4>
-              <p className="text-xs text-gray-500 leading-relaxed">
+              <p className="text-xs text-gray-400 leading-relaxed font-light">
                 Ensure your antivirus exceptions are correctly configured for Java-based utilities. HourClient utilizes advanced packet manipulation which may trigger heuristic warnings in non-secured environments.
               </p>
             </div>
