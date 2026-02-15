@@ -30,21 +30,21 @@ const VERSIONS = [
 const VERSION_HISTORY = [
   {
     version: "1.6.0",
-    date: "June 02, 2024",
+    date: "February 15, 2026",
     status: "Stable",
     highlights: ["Dynamic Island Customization", "Offline Account Fixes", "Kernel Engine Optimization", "Enhanced Bypass Logic"],
     url: "https://drive.usercontent.google.com/u/0/uc?id=1inSqjnWWqiyNafdA0-G_nwr2fwPYhLNX&export=download"
   },
   {
     version: "1.4.0",
-    date: "May 20, 2024",
+    date: "February 14, 2026",
     status: "Legacy",
     highlights: ["Complete GUI Redesign", "Advanced Pathfinding Aura", "Universal Bypasses", "GApple Module"],
     url: "https://drive.usercontent.google.com/u/0/uc?id=11NpfLjD39inzJ822JZvpXK8xjpXYm7fY&export=download"
   },
   {
     version: "1.3.1",
-    date: "March 15, 2024",
+    date: "February 14, 2026",
     status: "Archived",
     highlights: ["Watchdog Rotation Fixes", "New Velocity Algorithms", "ChestStealer Optimization"],
     url: "https://drive.usercontent.google.com/u/0/uc?id=1jxpZdpwgG1sAibmRg-lA-idEDoi-q3O_&export=download"
